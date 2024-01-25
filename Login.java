@@ -1,9 +1,15 @@
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Image;
+// import java.awt.Color;
+// import java.awt.Font;
+// import java.awt.Image;
+import java.awt.*;
+import java.awt.event.*;
+import java.sql.ResultSet;
 
 import javax.swing.*;
-public class Login extends JFrame{
+public class Login extends JFrame implements ActionListener{
+    JButton login, signup, forgot;
+    JTextField userField;
+    JPasswordField passField;
     Login(){
         setSize(350, 450);
         getContentPane().setBackground(Color.white);
@@ -39,33 +45,64 @@ public class Login extends JFrame{
         password.setFont(new Font("raleway", Font.BOLD, 16));
         add(password);
 
-        JTextField userField =new JTextField();
+        userField =new JTextField();
         userField.setBounds(40, 170, 250, 30);
         add(userField);
 
-        JPasswordField passField =new JPasswordField();
+        passField =new JPasswordField();
         passField.setBounds(40, 250, 250, 30);
         add(passField);
 
-        JButton login = new JButton("Login");
+        login = new JButton("Login");
         login.setBounds(40, 310, 100, 30);
         login.setBackground(new Color(36,36,36));
         login.setForeground(Color.white);
+        login.addActionListener(this);
         add(login);
 
-        JButton signup = new JButton("Sign Up");
+        signup = new JButton("Sign Up");
         signup.setBounds(190, 310, 100, 30);
         signup.setBackground(new Color(36,36,36));
         signup.setForeground(Color.white);
+        signup.addActionListener(this);
         add(signup);
 
-        JButton forgot = new JButton("Forgot Password ?");
+        forgot = new JButton("Forgot Password ?");
         forgot.setBounds(90, 360, 150, 30);
         forgot.setBackground(new Color(36,36,36));
         forgot.setForeground(Color.white);
+        forgot.addActionListener(this);
         add(forgot);
 
         setVisible(true);
+    }
+    
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(e.getSource()==login){
+            if(userField.getText().isEmpty()){
+                JOptionPane.showMessageDialog(null, "Please anter name and Password");
+            }else{
+                Conn c= new Conn();
+                try {
+                    ResultSet r= c.s.executeQuery("select * from sign where username = '"+userField.getText()+"' AND password = '"+passField.getText()+"'");
+                    if (r.next()) {
+                        JOptionPane.showMessageDialog(null, "Login sussessful");
+                        setVisible(false);
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Name or Password wrong");
+                    }
+                } catch (Exception f) {
+                    System.out.println(f);
+                }
+            }
+        }else if(e.getSource()==signup){
+            setVisible(false);
+            new Signup();
+        }else{
+            setVisible(false);
+            new Forgot();
+        }
     }
     public static void main(String[] args) {
         new Login();

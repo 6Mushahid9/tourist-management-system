@@ -1,6 +1,13 @@
 import javax.swing.*;
 import java.awt.*;
-public class Signup extends JFrame {
+import java.awt.event.*;
+import java.sql.ResultSet;
+
+public class Signup extends JFrame implements ActionListener{
+
+    JButton create, back;
+    JTextField namefield, passwordfield, answerfield;
+    Choice sequrity;
     Signup(){
         setSize(650, 300);
         setLocationRelativeTo(null);
@@ -11,7 +18,7 @@ public class Signup extends JFrame {
         name.setBounds(40, 25, 200, 20);
         name.setForeground(Color.white);
         add(name);
-        JTextField namefield = new JTextField();
+        namefield = new JTextField();
         namefield.setBounds(160, 25, 200, 25);
         add(namefield);
 
@@ -19,7 +26,7 @@ public class Signup extends JFrame {
         password.setBounds(40, 70, 200, 20);
         password.setForeground(Color.white);
         add(password);
-        JTextField passwordfield = new JTextField();
+        passwordfield = new JTextField();
         passwordfield.setBounds(160, 70, 200, 25);
         add(passwordfield);
 
@@ -28,7 +35,7 @@ public class Signup extends JFrame {
         question.setForeground(Color.white);
         question.setBackground(Color.red);
         add(question);
-        Choice sequrity = new Choice();
+        sequrity = new Choice();
         sequrity.add("Favourite food");
         sequrity.add("Pet name");
         sequrity.add("Formal Education");
@@ -40,18 +47,20 @@ public class Signup extends JFrame {
         answer.setBounds(40, 165, 200, 20);
         answer.setForeground(Color.white);
         add(answer);
-        JTextField answerfield = new JTextField();
+        answerfield = new JTextField();
         answerfield.setBounds(160, 165, 200, 25);
         add(answerfield);
 
-        JButton create = new JButton("Create");
+        create = new JButton("Create");
         create.setBackground(Color.white);
         create.setBounds(100,220, 80,25);
+        create.addActionListener(this);
         add(create);
 
-        JButton back = new JButton("Back");
+        back = new JButton("Back");
         back.setBackground(Color.white);
         back.setBounds(215,220, 80,25);
+        back.addActionListener(this);
         add(back);
 
         JPanel p= new JPanel();
@@ -68,6 +77,39 @@ public class Signup extends JFrame {
         p.add(i4);
 
         setVisible(true);
+    }
+    
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(e.getSource()==create){
+            String name = namefield.getText();
+            String password = passwordfield.getText();
+            String question= sequrity.getSelectedItem();
+            String answer = answerfield.getText();
+
+            if(namefield.getText().isEmpty() || passwordfield.getText().isEmpty() || answerfield.getText().isEmpty()){
+                JOptionPane.showMessageDialog(null, "Enter all details");
+            }else{
+                String query= "insert into sign values('"+name+"','"+password+"','"+question+"','"+answer+"')";
+                try{
+                    Conn c = new Conn();
+                    ResultSet r= c.s.executeQuery("select * from sign where username = '"+name+"'");
+                    if(r.next()){
+                        JOptionPane.showMessageDialog(null, "Name already taken");
+                    }else{
+                        c.s.executeUpdate(query);
+                        JOptionPane.showMessageDialog(null, "Account created successfully");
+                        setVisible(false);
+                        new Login();
+                    }         
+                }catch(Exception f){
+                    System.out.println(f);
+                }
+            }
+        }else{
+            setVisible(false);
+            new Login();
+        }
     }
     public static void main(String[] args) {
         new Signup();
