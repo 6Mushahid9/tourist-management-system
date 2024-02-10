@@ -57,41 +57,41 @@ public class Dashboard extends JFrame{
         profile.setForeground(Color.red);
         i4.add(profile);
 
-        // hotel = new JButton("hotel");
-        // hotel.setBounds(30,90,160,50);
-        // profile.setBackground(Color.green);
-        // profile.setForeground(Color.red);
-        // i4.add(hotel);
+        hotel = new JButton("hotel");
+        hotel.setBounds(30,90,160,50);
+        profile.setBackground(Color.green);
+        profile.setForeground(Color.red);
+        i4.add(hotel);
 
-        // notepad = new JButton("notepad");
-        // notepad.setBounds(30,160,160,50);
-        // profile.setBackground(Color.green);
-        // profile.setForeground(Color.red);
-        // i4.add(notepad);
+        notepad = new JButton("notepad");
+        notepad.setBounds(30,160,160,50);
+        profile.setBackground(Color.green);
+        profile.setForeground(Color.red);
+        i4.add(notepad);
 
-        // calc = new JButton("Calculator");
-        // calc.setBounds(30,230,160,50);
-        // profile.setBackground(Color.green);
-        // profile.setForeground(Color.red);
-        // i4.add(calc);
+        calc = new JButton("Calculator");
+        calc.setBounds(30,230,160,50);
+        profile.setBackground(Color.green);
+        profile.setForeground(Color.red);
+        i4.add(calc);
 
-        // payment = new JButton("Payment");
-        // payment.setBounds(30,300,160,50);
-        // profile.setBackground(Color.green);
-        // profile.setForeground(Color.red);
-        // i4.add(payment);
+        payment = new JButton("Payment");
+        payment.setBounds(30,300,160,50);
+        profile.setBackground(Color.green);
+        profile.setForeground(Color.red);
+        i4.add(payment);
 
-        // notepad = new JButton("notepad");
-        // notepad.setBounds(30,370,160,50);
-        // profile.setBackground(Color.green);
-        // profile.setForeground(Color.red);
-        // i4.add(notepad);
+        notepad = new JButton("notepad");
+        notepad.setBounds(30,370,160,50);
+        profile.setBackground(Color.green);
+        profile.setForeground(Color.red);
+        i4.add(notepad);
 
-        // calc = new JButton("Calculator");
-        // calc.setBounds(30,440,160,50);
-        // profile.setBackground(Color.green);
-        // profile.setForeground(Color.red);
-        // i4.add(calc);
+        calc = new JButton("Calculator");
+        calc.setBounds(30,440,160,50);
+        profile.setBackground(Color.green);
+        profile.setForeground(Color.red);
+        i4.add(calc);
 
         setVisible(true);
     }
