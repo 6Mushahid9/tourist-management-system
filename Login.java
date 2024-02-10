@@ -4,8 +4,8 @@
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.ResultSet;
-
 import javax.swing.*;
+
 public class Login extends JFrame implements ActionListener{
     JButton login, signup, forgot;
     JTextField userField;
@@ -87,9 +87,8 @@ public class Login extends JFrame implements ActionListener{
                 try {
                     ResultSet r= c.s.executeQuery("select * from sign where username = '"+userField.getText()+"' AND password = '"+passField.getText()+"'");
                     if (r.next()) {
-                        JOptionPane.showMessageDialog(null, "Login sussessful");
                         setVisible(false);
-                        new Dashboard();
+                        new Dashboard(userField.getText());
                     }else{
                         JOptionPane.showMessageDialog(null, "Name or Password wrong");
                     }
