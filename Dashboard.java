@@ -175,6 +175,6 @@ public class Dashboard extends JFrame implements ActionListener{
     }
 
     public static void main(String[] args) {
-        new Dashboard("");
+        new Dashboard("Shamikh");
     }
 }

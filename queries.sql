@@ -7,5 +7,6 @@ delete from sign where username = 'Talha bhai';
 create table userDetail(username varchar(20), id varchar(20), number varchar(15), gender varchar(6), country varchar(30), address varchar(30), phone varchar(10), email varchar(30));
 select * from userDetail;
 delete from userDetail where username = '';
+update userDetail set gender = 'female' where username = 'Mushahid' ;
 show tables;
 

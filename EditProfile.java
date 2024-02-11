@@ -1,5 +1,7 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.ResultSet;
+
 import javax.swing.*;
 
 public class EditProfile extends JFrame implements ActionListener{
@@ -108,32 +110,50 @@ public class EditProfile extends JFrame implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()== back){
             setVisible(false);
-            new Dashboard(username);
-        }else{
-            String id= (String) ids.getSelectedItem();
-            String number= numberField.getText();
-            String gender= null;
-            if(male.isSelected())   gender= "Male";
-            else    gender="Female";
-            String country= countryField.getText();
-            String address= addressField.getText();
-            String phone= phoneField.getText();
-            String email= emailField.getText();
-            
-            Conn c = new Conn();
-            if(number.isEmpty() || country.isEmpty() || address.isEmpty() || phone.isEmpty() || email.isEmpty()){
-                JOptionPane.showMessageDialog(null, "Enter all details to continue.");
-            }else{
-                String query= "insert into userDetail values('"+username+"', '"+id+"', '"+number+"', '"+gender+"', '"+country+"', '"+address+"', '"+phone+"', '"+email+"')"; 
-                try {
-                    c.s.executeUpdate(query);
-                    JOptionPane.showMessageDialog(null, "Details added sucessfuly");
-                    setVisible(false);
-                }catch (Exception f) {
-                    System.out.println(f);
-                }
-            }           
-        }
+        }else{     
+                String id= (String) ids.getSelectedItem();
+                String number= numberField.getText();
+                String gender= null;
+                if(male.isSelected())   gender= "Male";
+                else    gender="Female";
+                String country= countryField.getText();
+                String address= addressField.getText();
+                String phone= phoneField.getText();
+                String email= emailField.getText();
+
+                if(number.isEmpty() || country.isEmpty() || address.isEmpty() || phone.isEmpty() || email.isEmpty()){
+                    JOptionPane.showMessageDialog(null, "Enter all details to continue.");
+                }else{
+                    boolean present = false;
+                    String query= "select * from userDetail where username = '"+username+"'";
+                    Conn c = new Conn();
+                    try{
+                        ResultSet r= c.s.executeQuery(query);
+                        if(r.next())    present= true;
+                    }catch (Exception g){
+                        System.out.println(g);
+                    }
+                    if(present){
+                        String query2 = "update userDetail set id = '"+id+"', number = '"+number+"', gender = '"+gender+"', country= '"+country+"', address = '"+address+"', phone = '"+phone+"', email = '"+email+"' where username = '"+username+"'";
+                        try {
+                            c.s.executeUpdate(query2);
+                            JOptionPane.showMessageDialog(null, "Details updated sucessfuly");
+                            setVisible(false);
+                        }catch (Exception f) {
+                            System.out.println(f);
+                        }
+                    }else{                      
+                        String query3= "insert into userDetail values('"+username+"', '"+id+"', '"+number+"', '"+gender+"', '"+country+"', '"+address+"', '"+phone+"', '"+email+"')"; 
+                        try {
+                            c.s.executeUpdate(query3);
+                            JOptionPane.showMessageDialog(null, "Details added sucessfuly");
+                            setVisible(false);
+                        }catch (Exception f) {
+                            System.out.println(f);
+                        }
+                    }
+                }  
+        }                               
     }
     public static void main(String[] args) {
         new EditProfile("");
