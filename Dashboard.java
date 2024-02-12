@@ -150,7 +150,7 @@ public class Dashboard extends JFrame implements ActionListener{
         }else if(e.getSource()==hotel){
             
         }else if(e.getSource()==packages){
-            
+            new Packages();
         }else if(e.getSource()==destination){
             
         }else if(e.getSource()==payment){
